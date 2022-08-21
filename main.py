@@ -21,7 +21,7 @@ from ldm.data.base import Txt2ImgIterableBaseDataset
 from ldm.util import instantiate_from_config
 
 
-MULTINODE_HACKS = True
+MULTINODE_HACKS = False
 
 
 def get_parser(**parser_kwargs):
@@ -842,6 +842,9 @@ if __name__ == "__main__":
 
         # run
         if opt.train:
+            # model.load_state_dict(
+                # torch.load("/home/jpinkney/code/stable-diffusion-inf/sd-v1-3-full-ema.ckpt", map_location="cpu")["state_dict"],
+                # strict=False)
             try:
                 trainer.fit(model, data)
             except Exception:

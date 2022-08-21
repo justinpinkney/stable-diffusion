@@ -241,6 +241,8 @@ def main():
                             prompts = list(prompts)
                         c = model.get_learned_conditioning(prompts)
                         shape = [opt.C, opt.H // opt.f, opt.W // opt.f]
+                        print("--------")
+                        print(shape)
                         samples_ddim, _ = sampler.sample(S=opt.ddim_steps,
                                                          conditioning=c,
                                                          batch_size=opt.n_samples,

@@ -523,7 +523,7 @@ class LatentDiffusion(DDPM):
         self.instantiate_cond_stage(cond_stage_config)
         self.cond_stage_forward = cond_stage_forward
         self.clip_denoised = False
-        self.bbox_tokenizer = None  
+        self.bbox_tokenizer = None
 
         self.restarted_from_ckpt = False
         if ckpt_path is not None:
@@ -904,7 +904,7 @@ class LatentDiffusion(DDPM):
 
         if hasattr(self, "split_input_params"):
             assert len(cond) == 1  # todo can only deal with one conditioning atm
-            assert not return_ids  
+            assert not return_ids
             ks = self.split_input_params["ks"]  # eg. (128, 128)
             stride = self.split_input_params["stride"]  # eg. (64, 64)
 
@@ -1343,7 +1343,9 @@ class LatentDiffusion(DDPM):
                 log["samples_x0_quantized"] = x_samples
 
         if unconditional_guidance_scale > 1.0:
-            uc = self.get_unconditional_conditioning(N, unconditional_guidance_label)
+            # uc = self.get_unconditional_conditioning(N, unconditional_guidance_label)
+            # FIXME
+            uc = torch.zeros_like(c)
             with ema_scope("Sampling with classifier-free guidance"):
                 samples_cfg, _ = self.sample_log(cond=c, batch_size=N, ddim=use_ddim,
                                                  ddim_steps=ddim_steps, eta=ddim_eta,
