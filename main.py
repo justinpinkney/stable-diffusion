@@ -37,6 +37,13 @@ def get_parser(**parser_kwargs):
 
     parser = argparse.ArgumentParser(**parser_kwargs)
     parser.add_argument(
+        "--finetune_from",
+        type=str,
+        nargs="?",
+        default="",
+        help="path to checkpoint to load model state from"
+    )
+    parser.add_argument(
         "-n",
         "--name",
         type=str,
@@ -644,6 +651,20 @@ if __name__ == "__main__":
         # model
         model = instantiate_from_config(config.model)
 
+        if not opt.finetune_from == "":
+            print(f"Attempting to load state from {opt.finetune_from}")
+            old_state = torch.load(opt.finetune_from, map_location="cpu")
+            if "state_dict" in old_state:
+                print(f"Found nested key 'state_dict' in checkpoint, loading this instead")
+                old_state = old_state["state_dict"]
+            m, u = model.load_state_dict(old_state, strict=False)
+            if len(m) > 0:
+                print("missing keys:")
+                print(m)
+            if len(u) > 0:
+                print("unexpected keys:")
+                print(u)
+
         # trainer and callbacks
         trainer_kwargs = dict()
 
@@ -666,7 +687,7 @@ if __name__ == "__main__":
                 }
             },
         }
-        default_logger_cfg = default_logger_cfgs["testtube"]
+        default_logger_cfg = default_logger_cfgs["wandb"]
         if "logger" in lightning_config:
             logger_cfg = lightning_config.logger
         else:

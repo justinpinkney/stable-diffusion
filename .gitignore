@@ -1,0 +1,7 @@
+logs/
+dump/
+examples/
+outputs/
+flagged/
+*.egg-info
+__pycache__

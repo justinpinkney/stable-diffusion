@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import numpy as np
 from functools import partial
+import kornia
 
 from ldm.modules.x_transformer import Encoder, TransformerWrapper  # TODO: can we directly rely on lucidrains code and simply add this as a reuirement? --> test
 from ldm.util import default
@@ -171,8 +172,6 @@ class FrozenCLIPEmbedder(AbstractEncoder):
     def encode(self, text):
         return self(text)
 
-import kornia
-from torchvision import transforms
 class FrozenCLIPImageEmbedder(AbstractEncoder):
     """
         Uses the CLIP image encoder.
@@ -194,7 +193,7 @@ class FrozenCLIPImageEmbedder(AbstractEncoder):
         self.register_buffer('std', torch.Tensor([0.26862954, 0.26130258, 0.27577711]), persistent=False)
 
     def preprocess(self, x):
-        # normalize to [0,1]
+        # Expects inputs in the range -1, 1
         x = kornia.geometry.resize(x, (224, 224),
                                    interpolation='bicubic',align_corners=True,
                                    antialias=self.antialias)
