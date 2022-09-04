@@ -863,9 +863,6 @@ if __name__ == "__main__":
 
         # run
         if opt.train:
-            # model.load_state_dict(
-                # torch.load("/home/jpinkney/code/stable-diffusion-inf/sd-v1-3-full-ema.ckpt", map_location="cpu")["state_dict"],
-                # strict=False)
             try:
                 trainer.fit(model, data)
             except Exception:
