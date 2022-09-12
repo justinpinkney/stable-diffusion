@@ -4,6 +4,9 @@
 
 [![](assets/img-vars.jpg)](https://twitter.com/Buntworthy/status/1561703483316781057)
 
+Try it out in colab: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1JqNbI_kDq_Gth2MIYdsphgNgyGIJxBgB?usp=sharing)
+
+
 _TODO describe in more detail_
 
 - Get access to a Linux machine with a decent NVIDIA GPU (e.g. on [Lambda GPU Cloud](https://lambdalabs.com/service/gpu-cloud))
