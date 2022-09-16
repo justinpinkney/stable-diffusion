@@ -1343,9 +1343,8 @@ class LatentDiffusion(DDPM):
                 log["samples_x0_quantized"] = x_samples
 
         if unconditional_guidance_scale > 1.0:
-            # uc = self.get_unconditional_conditioning(N, unconditional_guidance_label)
-            # FIXME
-            uc = torch.zeros_like(c)
+            uc = self.get_unconditional_conditioning(N, unconditional_guidance_label)
+            # uc = torch.zeros_like(c)
             with ema_scope("Sampling with classifier-free guidance"):
                 samples_cfg, _ = self.sample_log(cond=c, batch_size=N, ddim=use_ddim,
                                                  ddim_steps=ddim_steps, eta=ddim_eta,
@@ -1396,6 +1395,13 @@ class LatentDiffusion(DDPM):
     def configure_optimizers(self):
         lr = self.learning_rate
         params = list(self.model.parameters())
+        # FIXME JP
+        # params = []
+        # from ldm.modules.attention import CrossAttention
+        # for n, m in self.model.named_modules():
+            # if isinstance(m, CrossAttention) and n.endswith('attn2'):
+                # params.extend(m.parameters())
+        # END FIXME JP
         if self.cond_stage_trainable:
             print(f"{self.__class__.__name__}: Also optimizing conditioner params!")
             params = params + list(self.cond_stage_model.parameters())

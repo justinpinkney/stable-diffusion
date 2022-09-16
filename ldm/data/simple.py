@@ -71,7 +71,7 @@ def hf_dataset(
     return ds
 
 class TextOnly(Dataset):
-    def __init__(self, captions, output_size, image_key="image", caption_key="txt"):
+    def __init__(self, captions, output_size, image_key="image", caption_key="txt", n_gpus=1):
         """Returns only captions with dummy images"""
         self.output_size = output_size
         self.image_key = image_key
@@ -80,6 +80,12 @@ class TextOnly(Dataset):
             self.captions = self._load_caption_file(captions)
         else:
             self.captions = captions
+
+        if n_gpus > 1:
+            # hack to make sure that all the captions appear on each gpu
+            repeated = [n_gpus*[x] for x in self.captions]
+            self.captions = []
+            [self.captions.extend(x) for x in repeated]
 
     def __len__(self):
         return len(self.captions)
