@@ -1,5 +1,24 @@
 # Experiments with Stable Diffusion
 
+This repository extends and adds to the [original training repo](https://github.com/pesser/stable-diffusion) for Stable Diffusion.
+
+Currently it adds:
+
+- Fine tuning
+- Image variations
+- Conversion to Huggingface Diffusers
+
+## Fine tuning
+
+Makes it easy to fine tune Stable Diffusion on your own dataset. For example generating new Pokemon from text:
+
+![](assets/pokemontage.jpg)
+
+> Girl with a pearl earring, Cute Obama creature, Donald Trump, Boris Johnson, Totoro, Hello Kitty
+
+
+For a step by step guide see the [Lambda Labs examples repo](https://github.com/LambdaLabsML/examples).
+
 ## Image variations
 
 [![](assets/img-vars.jpg)](https://twitter.com/Buntworthy/status/1561703483316781057)
