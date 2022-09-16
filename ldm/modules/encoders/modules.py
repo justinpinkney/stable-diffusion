@@ -172,6 +172,19 @@ class FrozenCLIPEmbedder(AbstractEncoder):
     def encode(self, text):
         return self(text)
 
+class ProjectedFrozenCLIPEmbedder(AbstractEncoder):
+    def __init__(self, version="openai/clip-vit-large-patch14", device="cuda", max_length=77):  # clip-vit-base-patch32
+        super().__init__()
+        self.embedder = FrozenCLIPEmbedder(version=version, device=device, max_length=max_length)
+        self.projection = torch.nn.Linear(768, 768)
+
+    def forward(self, text):
+        z = self.embedder(text)
+        return self.projection(z)
+
+    def encode(self, text):
+        return self(text)
+
 class FrozenCLIPImageEmbedder(AbstractEncoder):
     """
         Uses the CLIP image encoder.
@@ -191,6 +204,14 @@ class FrozenCLIPImageEmbedder(AbstractEncoder):
 
         self.register_buffer('mean', torch.Tensor([0.48145466, 0.4578275, 0.40821073]), persistent=False)
         self.register_buffer('std', torch.Tensor([0.26862954, 0.26130258, 0.27577711]), persistent=False)
+
+        # I didn't call this originally, but seems like it was frozen anyway
+        self.freeze()
+
+    def freeze(self):
+        self.transformer = self.transformer.eval()
+        for param in self.parameters():
+            param.requires_grad = False
 
     def preprocess(self, x):
         # Expects inputs in the range -1, 1
