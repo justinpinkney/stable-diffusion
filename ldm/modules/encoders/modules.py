@@ -208,6 +208,7 @@ class FrozenCLIPEmbedder(AbstractEncoder):
         outputs = self.transformer(input_ids=tokens)
 
         z = outputs.last_hidden_state
+        print(f"Shape of z inf FrozenCLIPEmbedder: {z.shape}")
         return z
 
     def encode(self, text):
