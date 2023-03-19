@@ -1,5 +1,4 @@
 Устанавливаем зависимости:
-
 ```
 python -m venv .venv --prompt sd
 . .venv/bin/activate

@@ -187,10 +187,10 @@ _Created by [Justin Pinkney](https://www.justinpinkney.com) at [Lambda Labs](htt
 
     ex = gr.Examples([[
         "Image", "Image", "Text/URL", "Nothing", "Nothing",
-        None,None,"central symmetric figure detailed artwork",None,None,
+        None,None,"wild flowers blooming",None,None,
         "assets/im-examples/vermeer.jpg","assets/im-examples/matisse.jpg",None,None,None,
-        1,1.35,1.4,1,1,
-        3.0, 1, 0, 30,
+        1,1,1.8,1,1,
+        3.0, 2, 0, 30,
     ]],
     inputs=inps, outputs=[output])
 
