@@ -15,6 +15,8 @@ Currently it adds:
 
 ![banner-large.jpeg](https://s3.amazonaws.com/moonup/production/uploads/1674039767068-62bd5f951e22ec84279820e8.jpeg)
 
+[![Try a demo on Replicate](https://replicate.com/lambdal/image-mixer/badge)](https://replicate.com/lambdal/image-mixer)
+
 The model is available on [huggingface spaces](https://huggingface.co/spaces/lambdalabs/image-mixer-demo) or to run locally do the following:
 
 ```bash
